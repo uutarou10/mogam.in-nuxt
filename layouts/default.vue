@@ -4,11 +4,22 @@
       <NuxtLink to='/'>
         <img alt='logo' src='~/assets/logo.svg' class='logo' />
       </NuxtLink>
-      <humberger-button />
+      <HamburgerButton />
     </header>
     <Nuxt />
   </div>
 </template>
+
+<script>
+import Vue from 'vue';
+import HamburgerButton from '../components/hamburgerButton';
+
+export default Vue.extend({
+  components: {
+    HamburgerButton
+  }
+})
+</script>
 
 <style lang='scss' scoped>
 .container {
@@ -24,14 +35,8 @@ header {
   padding: 32px 0;
 
   .logo {
-    width: 100px;
-    height: 100px
+    width: 80px;
+    height: 80px
   }
 }
 </style>
-<script>
-import HumbergerButton from '../components/humbergerButton'
-export default {
-  components: { HumbergerButton }
-}
-</script>

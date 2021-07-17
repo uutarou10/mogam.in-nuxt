@@ -1,5 +1,5 @@
 <template>
-  <div @click='onClick' class='hamburgerButton'>
+  <div class='hamburgerButton' @click="$emit('onClick')">
     <div/>
     <div/>
     <div/>
@@ -8,10 +8,8 @@
 
 <script lang='ts'>
   export default {
-    methods: {
-      onClick() {
-        console.log(`onClick Hamburger!!🍔`)
-      }
+    emits: {
+      click: () => true
     }
   }
 </script>

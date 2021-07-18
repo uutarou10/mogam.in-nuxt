@@ -6,9 +6,9 @@
         <img src='~/assets/text-logo.svg' alt='mogam.in' class='text-logo' />
       </h1>
       <nav>
-        <heading :level='3'><NuxtLink to='/profile'>Profile</NuxtLink></heading>
-        <heading :level='3'><NuxtLink to='/articles'>Articles</NuxtLink></heading>
-        <heading :level='3'><NuxtLink to='/contact'>Contact</NuxtLink></heading>
+        <AppHeading :level='3'><NuxtLink to='/profile'>Profile</NuxtLink></AppHeading>
+        <AppHeading :level='3'><NuxtLink to='/articles'>Articles</NuxtLink></AppHeading>
+        <AppHeading :level='3'><NuxtLink to='/contact'>Contact</NuxtLink></AppHeading>
       </nav>
     </main>
     <site-footer />
@@ -17,13 +17,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import heading from '~/components/Heading.vue';
 import SiteFooter from '~/components/SiteFooter.vue'
+import AppHeading from '~/components/AppHeading.vue'
 
 export default Vue.extend({
   components: {
+    AppHeading,
     SiteFooter,
-    heading,
   },
   layout: 'topPage'
 })

@@ -37,6 +37,7 @@ h1 {
 h2 {
   font-weight: 700;
   font-size: 36px;
+  margin-top: 32px;
 }
 
 h3 {

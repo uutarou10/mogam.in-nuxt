@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class='footerContents'>
-      <p>Copyright 2021 Kota Nonaka</p>
+      <span>Copyright 2021 Kota Nonaka</span>
       <NuxtLink to='/policy'>プライバシーポリシー</NuxtLink>
     </div>
   </footer>

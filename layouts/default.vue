@@ -6,16 +6,21 @@
       </NuxtLink>
       <HamburgerButton />
     </header>
-    <Nuxt />
+    <main>
+      <Nuxt />
+    </main>
+    <SiteFooter />
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import HamburgerButton from '../components/hamburgerButton';
+import HamburgerButton from '../components/HamburgerButton';
+import SiteFooter from '../components/SiteFooter'
 
 export default Vue.extend({
   components: {
+    SiteFooter,
     HamburgerButton
   }
 })
@@ -38,5 +43,9 @@ header {
     width: 80px;
     height: 80px
   }
+}
+
+main {
+  padding-top: 32px;
 }
 </style>

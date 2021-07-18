@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import heading from '~/components/heading.vue';
-import SiteFooter from '~/components/siteFooter.vue'
+import heading from '~/components/Heading.vue';
+import SiteFooter from '~/components/SiteFooter.vue'
 
 export default Vue.extend({
   components: {

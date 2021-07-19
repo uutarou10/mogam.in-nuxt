@@ -1,5 +1,5 @@
 <template>
-  <a :href='url' target='_blank' class='articleCard'>
+  <a :href='url' target='_blank' :title='title' class='articleCard'>
     <h2 class='articleCard__title'>{{title}}</h2>
     <div class='articleCard__body'>{{body}}</div>
     <small class='articleCard__footer'>{{formattedDate}} from {{mediaType}}</small>
@@ -55,11 +55,12 @@ export default Vue.extend({
   box-shadow: 4px 4px 0 #20C0FB;
   border-radius: 4px;
   cursor: pointer;
-  transition: transform .2s, opacity .2s;
+  transition: box-shadow .2s;
   text-decoration: none;
 
   &:hover {
-    transform: scale(1.01, 1.01);
+    opacity: 1;
+    box-shadow: 8px 8px 0 #20C0FB;
   }
 
   &__title {
@@ -68,6 +69,9 @@ export default Vue.extend({
     font-size: 24px;
     line-height: 36px;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__body {
@@ -77,6 +81,7 @@ export default Vue.extend({
     width: 100%;
     height: 160px;
     text-align: left;
+    overflow: hidden;
   }
 
   &__footer {
@@ -85,6 +90,14 @@ export default Vue.extend({
     font-size: 12px;
     line-height: 180%;
     color: #6D787B;
+  }
+
+  &-enter-active, &-leave-active {
+    transition: opacity .2s;
+  }
+
+  &-enter, &-leave-to {
+    opacity: 0;
   }
 }
 </style>

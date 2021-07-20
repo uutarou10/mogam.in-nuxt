@@ -47,8 +47,9 @@ export default Vue.extend({
 
 <style lang='scss' scoped>
 .container {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 header {

@@ -24,15 +24,15 @@
 </template>
 
 <script lang='ts'>
-import MediaSelectButton from './MediaSelectButton'
+import MediaSelectButton from './MediaSelectButton.vue'
 export default {
   components: { MediaSelectButton },
   props: {
     activeMediaType: {
       type: String,
       required: true,
-      validate(value) {
-        return ['all','blog','zenn','note','qiita'].includes(value);
+      validate(value: unknown) {
+        return typeof value === 'string' && ['all','blog','zenn','note','qiita'].includes(value);
       }
     }
   }

@@ -18,9 +18,6 @@ export default Vue.extend({
         return false
       }
     }
-  },
-  emit: {
-
   }
 });
 </script>

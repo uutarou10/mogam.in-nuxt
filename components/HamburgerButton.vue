@@ -1,9 +1,9 @@
 <template>
-  <div class='hamburgerButton' @click="$emit('onClick')">
-    <div/>
-    <div/>
-    <div/>
-  </div>
+  <button class='hamburgerButton' @click="$emit('click')">
+    <span/>
+    <span/>
+    <span/>
+  </button>
 </template>
 
 <script lang='ts'>
@@ -23,7 +23,7 @@
   height: 24px;
   cursor: pointer;
 
-  & > div {
+  & > span {
     width: 100%;
     height: 3px;
     background-color: #20C0FB;

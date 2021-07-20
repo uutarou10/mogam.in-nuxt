@@ -13,7 +13,7 @@
     <transition name='drawerTransition'>
       <div v-if='isShowDrawer'>
         <div class='drawerBackdrop' @click='isShowDrawer = false'></div>
-        <AppDrawer class='drawer' />
+        <AppDrawer class='drawer' @close-drawer='isShowDrawer = false' />
       </div>
     </transition>
   </div>
@@ -34,6 +34,12 @@ export default Vue.extend({
   data() {
     return {
       isShowDrawer: false
+    }
+  },
+  watch: {
+    $route() {
+      // こんな荒技でいいのかどうか知らんがこれでrouteが変わったことを検知してドロワーを隠す
+      this.isShowDrawer = !this.isShowDrawer;
     }
   }
 })

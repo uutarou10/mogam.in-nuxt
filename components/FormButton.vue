@@ -1,5 +1,7 @@
 <template>
-  <button class='formButton'><slot/></button>
+  <button class='formButton'>
+    <slot />
+  </button>
 </template>
 
 <style lang='scss' scoped>

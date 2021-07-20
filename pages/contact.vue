@@ -11,17 +11,21 @@
       <InputWithLabel v-model.trim='email' value='' name='email' label='メールアドレス' type='email' />
       <TextAreaWithLabel v-model.trim='body' value='' name='body' label='本文(400字まで)' :max-length='400' />
       <div class='contactForm__submit'>
-        <FormButton class='contactForm_button' type='submit' :disabled='isDisabled'>送信</FormButton>
+        <FormButton class='contactForm_button' type='submit' :disabled='isDisabled'>
+          {{isSending ? "送信中..." : "送信"}}
+        </FormButton>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import AppHeading from '../components/AppHeading'
 import InputWithLabel from '../components/InputWithLabel'
 import TextAreaWithLabel from '../components/TextAreaWithLabel'
 import FormButton from '../components/FormButton'
+
 const emailRegex = /[\w\-._]+@[\w\-._]+\.[A-Za-z]+/;
 
 export default {
@@ -30,17 +34,37 @@ export default {
     return {
       name: '',
       email: '',
-      body: ''
+      body: '',
+      isSending: false
     }
   },
   computed: {
     isDisabled() {
-      return this.name.length === 0 || this.email.length === 0 || this.body.length === 0 || this.body.length > 400 || !emailRegex.test(this.email);
+      return this.isSending || this.name.length === 0 || this.email.length === 0 || this.body.length === 0 || this.body.length > 400 || !emailRegex.test(this.email);
     }
   },
   methods: {
-    submit() {
-      console.log({name: this.name, email: this.email, body: this.body});
+    async submit() {
+      this.isSending = true;
+      try {
+        await axios.post(
+          'https://us-central1-mogamin-playground.cloudfunctions.net/sendContact',
+          {name: this.name, email: this.email, content: this.body}
+        );
+        alert(
+          '送信しました。返信が必要と判断したものに関してはこちらよりご連絡いたします。'
+        );
+        this.resetForm();
+      } catch {
+        alert('申し訳ありません。送信できませんでした。\n再度お試しください。');
+      } finally {
+        this.isSending = false;
+      }
+    },
+    resetForm() {
+      this.name = "";
+      this.email = "";
+      this.body = "";
     }
   }
 }

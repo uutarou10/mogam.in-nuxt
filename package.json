@@ -17,6 +17,7 @@
     "*.{css,vue}": "stylelint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.15.1",
     "dayjs": "^1.10.6",
     "destyle.css": "^2.0.2",

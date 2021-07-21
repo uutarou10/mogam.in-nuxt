@@ -28,6 +28,11 @@ export default {
   height: 100%;
   background-color: #F2F3F4;
 
+  @media screen and (max-width: 400px) {
+    width: 100vw;
+    padding: 32px;
+  }
+
   &__nav {
     display: flex;
     flex-direction: column;

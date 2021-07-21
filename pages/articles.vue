@@ -122,5 +122,9 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: calc(50% - 16px) calc(50% - 16px); // ↓だと記事タイトルとかが長いときにgridをはみ出していってしまうのでいたしかなたなく。
   gap: 32px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 100%;
+  }
 }
 </style>

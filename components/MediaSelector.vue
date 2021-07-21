@@ -45,5 +45,6 @@ export default {
   flex-direction: row;
   justify-content: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 </style>

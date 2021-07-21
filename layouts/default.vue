@@ -4,7 +4,7 @@
       <NuxtLink to='/'>
         <img alt='logo' src='~/assets/logo.svg' class='logo' />
       </NuxtLink>
-      <HamburgerButton @click='isShowDrawer = true' />
+      <HamburgerButton class='hamburgerButton' @click='isShowDrawer = true' />
     </header>
     <main>
       <Nuxt />
@@ -61,7 +61,19 @@ header {
 
   .logo {
     width: 80px;
-    height: 80px
+    height: 80px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .logo {
+      width: 64px;
+      height: 64px;
+    }
+
+    .hamburgerButton {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 

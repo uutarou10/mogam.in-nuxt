@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'mogam.in',
+    titleTemplate: '%s | mogam.in',
     htmlAttrs: {
       lang: 'ja',
     },

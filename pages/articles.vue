@@ -53,6 +53,9 @@ export default Vue.extend({
       activeMediaType: 'all'
     }
   },
+  head: {
+    title: 'Articles'
+  },
   computed: {
     filteredArticles() {
       return (() => {

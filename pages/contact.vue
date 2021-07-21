@@ -38,6 +38,9 @@ export default {
       isSending: false
     }
   },
+  head: {
+    title: 'Contact'
+  },
   computed: {
     isDisabled() {
       return this.isSending || this.name.length === 0 || this.email.length === 0 || this.body.length === 0 || this.body.length > 400 || !emailRegex.test(this.email);

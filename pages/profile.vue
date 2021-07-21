@@ -22,7 +22,10 @@
 <script>
 import AppHeading from '../components/AppHeading'
 export default {
-  components: { AppHeading }
+  components: { AppHeading },
+  head: {
+    title: 'Profile'
+  }
 }
 </script>
 

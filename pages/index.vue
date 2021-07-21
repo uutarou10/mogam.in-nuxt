@@ -25,7 +25,11 @@ export default Vue.extend({
     AppHeading,
     SiteFooter,
   },
-  layout: 'topPage'
+  layout: 'topPage',
+  head: {
+    title: 'mogam.in',
+    titleTemplate: ''
+  }
 })
 </script>
 

@@ -47,7 +47,10 @@
 import AppHeading from '../components/AppHeading'
 
 export default {
-  components: { AppHeading }
+  components: { AppHeading },
+  head: {
+    title: 'Privacy Policy'
+  }
 }
 </script>
 

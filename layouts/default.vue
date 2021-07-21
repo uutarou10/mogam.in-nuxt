@@ -36,6 +36,15 @@ export default Vue.extend({
       isShowDrawer: false
     }
   },
+  // head() {
+  //   return {
+  //     meta: [
+  //       { property: 'og:type', content: 'website' },
+  //       {property: 'og:url', content: `https://mogam.in${this.$route.path}`},
+  //     ]
+  //   }
+  // },
+
   watch: {
     $route() {
       // こんな荒技でいいのかどうか知らんがこれでrouteが変わったことを検知してドロワーを隠す

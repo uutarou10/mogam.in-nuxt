@@ -26,12 +26,17 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
+import * as crypto from 'crypto';
 import Vue from 'vue'
 import Parser from 'rss-parser';
 import AppHeading from '../components/AppHeading'
 import ArticleCard from '../components/ArticleCard'
 import MediaSelector from '../components/MediaSelector'
+
+const md5 = (str: string) => {
+  return crypto.createHash('md5').update(str).digest('hex');
+}
 
 export default Vue.extend({
   components: { MediaSelector, ArticleCard, AppHeading },
@@ -46,15 +51,23 @@ export default Vue.extend({
 
     const articles = (await Promise.all(feedUrls.map(feedUrl => parser.parseURL(feedUrl))))
       .reduce((prev, current) => ([...prev, ...current.items]), []);
-    return {articles}
+    return {
+      articles,
+      feedHash: md5(JSON.stringify(articles))
+    }
   },
   data() {
     return {
       activeMediaType: 'all'
     }
   },
-  head: {
-    title: 'Articles'
+  head() {
+    return {
+      title: 'Articles',
+      meta: [
+        {name: 'mogamin-articles-hash', content: this.feedHash }
+      ]
+    }
   },
   computed: {
     filteredArticles() {

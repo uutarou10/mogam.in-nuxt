@@ -36,14 +36,6 @@ export default Vue.extend({
       isShowDrawer: false
     }
   },
-  // head() {
-  //   return {
-  //     meta: [
-  //       { property: 'og:type', content: 'website' },
-  //       {property: 'og:url', content: `https://mogam.in${this.$route.path}`},
-  //     ]
-  //   }
-  // },
 
   watch: {
     $route() {

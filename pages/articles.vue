@@ -28,18 +28,30 @@
 
 <script lang='ts'>
 import * as crypto from 'crypto';
-import Vue from 'vue'
+import { Component, Vue } from "vue-property-decorator";
 import Parser from 'rss-parser';
-import AppHeading from '../components/AppHeading'
-import ArticleCard from '../components/ArticleCard'
-import MediaSelector from '../components/MediaSelector'
+import AppHeading from '../components/AppHeading.vue'
+import ArticleCard from '../components/ArticleCard.vue'
+import MediaSelector from '../components/MediaSelector.vue'
 
 const md5 = (str: string) => {
   return crypto.createHash('md5').update(str).digest('hex');
 }
 
-export default Vue.extend({
-  components: { MediaSelector, ArticleCard, AppHeading },
+type MediaType = 'all' | 'note' | 'qiita' | 'zenn' | 'blog';
+
+interface Article {
+  link: string,
+  title: string,
+  contentSnippet: string,
+  isoDate: string
+}
+
+@Component({
+  components: {AppHeading, ArticleCard, MediaSelector},
+  head: {
+    title: 'Articles'
+  },
   async asyncData() {
     const parser = new Parser();
     const feedUrls = [
@@ -50,77 +62,74 @@ export default Vue.extend({
     ];
 
     const articles = (await Promise.all(feedUrls.map(feedUrl => parser.parseURL(feedUrl))))
-      .reduce((prev, current) => ([...prev, ...current.items]), []);
+      .reduce<Article[]>((prev, current) => ([...prev, ...(current.items as Article[])]), []);
     return {
       articles,
       feedHash: md5(JSON.stringify(articles))
     }
-  },
-  data() {
-    return {
-      activeMediaType: 'all'
-    }
-  },
-  head() {
-    return {
-      title: 'Articles',
-      meta: [
-        {name: 'mogamin-articles-hash', content: this.feedHash }
-      ]
-    }
-  },
-  computed: {
-    filteredArticles() {
-      return (() => {
-        switch (this.activeMediaType) {
-          case 'blog':
-            return this.articles.filter(article => this.isBlog(article.link))
-          case 'zenn':
-            return this.articles.filter(article => this.isZenn(article.link))
-          case 'qiita':
-            return this.articles.filter(article => this.isQiita(article.link))
-          case 'note':
-            return this.articles.filter(article => this.isNote(article.link))
-          case 'all':
-          default:
-            return this.articles;
-        }
-      })().sort((a, b) => new Date(a.isoDate).getTime() < new Date(b.isoDate).getTime() ? 1 : -1);
-    }
-  },
-  methods: {
-    onChangeActiveMedia(media) {
-      this.activeMediaType = media;
-    },
-    mediaTypeByUrl(url) {
-      if (this.isQiita(url)) {
-        return 'qiita';
-      } else if (this.isNote(url)) {
-        return 'note';
-      } else if (this.isBlog(url)) {
-        return 'blog';
-      } else if (this.isZenn(url)) {
-        return 'zenn'
-      }
-    },
-    isQiita(url) {
-      const {host} = new URL(url);
-      return /^qiita.com$/.test(host);
-    },
-    isNote(url) {
-      const {host} = new URL(url);
-      return /^note.com$/.test(host);
-    },
-    isBlog(url) {
-      const {host} = new URL(url);
-      return /^yurufuwa-tech.hatenablog.com$/.test(host);
-    },
-    isZenn(url) {
-      const {host} = new URL(url);
-      return /^zenn.dev$/.test(host);
-    }
   }
 })
+export default class Articles extends Vue {
+  articles: Article[] = [];
+  feedHash: string = "";
+  activeMediaType: MediaType = 'all';
+
+  onChangeActiveMedia(mediaType: MediaType) {
+    this.activeMediaType = mediaType;
+  }
+
+  mediaTypeByUrl(url: string): MediaType {
+    if (this.isQiita(url)) {
+      return 'qiita';
+    } else if (this.isNote(url)) {
+      return 'note';
+    } else if (this.isBlog(url)) {
+      return 'blog';
+    } else if (this.isZenn(url)) {
+      return 'zenn';
+    } else {
+      return 'all'; // unknown的なやつの方がいいかも
+    }
+  }
+
+  isQiita(url: string): boolean {
+    const {host} = new URL(url);
+    return /^qiita.com$/.test(host);
+  }
+
+  isNote(url: string): boolean {
+    const {host} = new URL(url);
+    return /^note.com$/.test(host);
+  }
+
+  isBlog(url: string): boolean {
+    const {host} = new URL(url);
+    return /^yurufuwa-tech.hatenablog.com$/.test(host);
+  }
+
+  isZenn(url: string): boolean {
+    const {host} = new URL(url);
+    return /^zenn.dev$/.test(host);
+  }
+
+  get filteredArticles(): Parser.Item[] {
+    return (() => {
+      switch (this.activeMediaType) {
+        case 'blog':
+          return this.articles.filter(article => this.isBlog(article.link))
+        case 'zenn':
+          return this.articles.filter(article => this.isZenn(article.link))
+        case 'qiita':
+          return this.articles.filter(article => this.isQiita(article.link))
+        case 'note':
+          return this.articles.filter(article => this.isNote(article.link))
+        case 'all':
+        default:
+          return this.articles;
+      }
+    })().sort((a, b) => new Date(a.isoDate).getTime() < new Date(b.isoDate).getTime() ? 1 : -1);
+  }
+}
 </script>
 
 <style lang='scss' scoped>

@@ -17,7 +17,12 @@ export default {
         { name: 'msapplication-TileColor', color: '#da532c' },
         { name: 'theme-color', content: '#ffffff' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: `https://mogam.in${this.$route.path}` },
+        this.$route
+          ? {
+              property: 'og:url',
+              content: `https://mogam.in${this.$route.path}`,
+            }
+          : undefined, // なんか知らんけどthis.$routeがundefinedになるタイミングがあったので
         { property: 'og:image', content: 'https://mogam.in/ogp.png' },
         { property: 'og:site_name', content: 'mogam.in' },
         {
@@ -27,7 +32,7 @@ export default {
         },
         { property: 'fb:app_id', content: '3208244659289571' },
         { property: 'twitter:card', content: 'summary_large_image' },
-      ],
+      ].filter(Boolean),
       link: [
         {
           rel: 'apple-touch-icon',

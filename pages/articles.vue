@@ -49,8 +49,13 @@ interface Article {
 
 @Component({
   components: {AppHeading, ArticleCard, MediaSelector},
-  head: {
-    title: 'Articles'
+  head(){
+    return {
+      title: 'Articles',
+      meta: [
+        {name: 'mogamin-feed-hash', content: this.$data.feedHash }
+      ]
+    };
   },
   async asyncData() {
     const parser = new Parser();
